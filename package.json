@@ -1,0 +1,34 @@
+{
+  "name": "bignum-native",
+  "version": "0.0.1",
+  "description": "An implementation of arbitrary-precision arithmetic using JavaScript's native BigInt type",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericman314/bignum-native.git"
+  },
+  "keywords": [
+    "arbitrary",
+    "precision",
+    "arithmetic",
+    "bigint",
+    "native",
+    "bigdecimal",
+    "bignumber"
+  ],
+  "author": "Eric Mansfield",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ericman314/bignum-native/issues"
+  },
+  "homepage": "https://github.com/ericman314/bignum-native#readme"
+}
