@@ -22,7 +22,7 @@ console.log(new BigNum('1').divide(new BigNum('3')).toString());
 
 ## API ##
 
-**BigNum( [value:{Number|String}], [options])** &mdash; Construct a `BigNum`
+**BigNum(value, [options])** &mdash; Construct a `BigNum`
 - `value` &mdash; A `string` or `number` to be converted to a `BigNum`. If omitted, `0` will be used.
 - `options` &mdash; Not used at this time.
 
@@ -92,6 +92,15 @@ let b = new BigNum('3')
 BigNum.precision = 60;
 a.divide(b) // 0.142857142857142857142857142857142857142857142857142857142857
 ```
+
+## Testing ##
+
+Tests are located in the `test` directory and use the `mocha` framework.
+
+```
+npm test
+```
+
 
 ## Contributing ##
 

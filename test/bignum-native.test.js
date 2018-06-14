@@ -1,5 +1,5 @@
 var assert = require('assert')
-var BigNum = require('../BigNum')
+var BigNum = require('../bignum-native')
 var util = require('util')
 
 
