@@ -104,7 +104,7 @@ npm test
 
 ## Contributing ##
 
-This library is far from perfect, or even complete, so contributions are very welcome! Just submit a pull request.
+This library is far from perfect, or even complete, so contributions are very welcome! Please submit an issue to report bugs or propose new features, or submit a pull request.
 
 ## License ##
 
