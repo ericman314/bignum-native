@@ -101,6 +101,30 @@ Tests are located in the `test` directory and use the `mocha` framework.
 npm test
 ```
 
+## Benchmarks ##
+
+A simple performance benchmark suite is located in the `benchmark` directory.
+
+```
+node benchmark/index.js
+```
+
+Below is some sample output from a benchmark comparing BigNum-Native with BigNumber.js. BigNum-Native is faster in some places and slower in others. BigNum-Native currently lacks input type checking, error handling, and rounding, which may be the cause of the better speed. Or it could be due to V8's internal implementation of `BigInt` being highly optimized, which is what this library is intended to take advantage of. Or it could be a result of the particular benchmark calculations that were chosen; calculations with more or fewer digits, for example, might change the results. It will be interesting to see how these numbers change as the `BigInt` implementation is optimized in the future.
+
+```
+BigNum-Native parse x 1,909,749 ops/sec ±1.27% (88 runs sampled)
+BigNumber.js  parse x 1,093,438 ops/sec ±0.82% (83 runs sampled)
+BigNum-Native add x 6,070,220 ops/sec ±0.95% (79 runs sampled)
+BigNumber.js  add x 4,145,152 ops/sec ±1.07% (82 runs sampled)
+BigNum-Native subtract x 4,554,697 ops/sec ±1.27% (82 runs sampled)
+BigNumber.js  subtract x 5,145,272 ops/sec ±0.98% (82 runs sampled)
+BigNum-Native minus x 34,056,309 ops/sec ±1.45% (84 runs sampled)
+BigNumber.js  minus x 11,268,415 ops/sec ±2.01% (82 runs sampled)
+BigNum-Native multiply x 3,421,857 ops/sec ±1.49% (84 runs sampled)
+BigNumber.js  multiply x 1,267,975 ops/sec ±1.09% (81 runs sampled)
+BigNum-Native divide x 204,747 ops/sec ±1.04% (83 runs sampled)
+BigNumber.js  divide x 262,573 ops/sec ±1.04% (81 runs sampled)
+```
 
 ## Contributing ##
 
