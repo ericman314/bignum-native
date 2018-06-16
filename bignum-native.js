@@ -155,7 +155,6 @@ class BigNum {
     a_times_b.i = a.i * b.i;
     a_times_b.e = a.e + b.e;
 
-    a_times_b._truncate();
     a_times_b._normalize();
     return a_times_b;
   }
@@ -212,6 +211,8 @@ class BigNum {
    * @returns {BigInt}
    */
   static multiplyByTens(i, e) {
+    
+    // The implementation is faster than 10n ** BigInt(e). But could we make it faster still?
     var ii = i;
     for(var j=0; j<e; j++) {
       ii *= 10n;
@@ -235,10 +236,16 @@ class BigNum {
    */
   _truncate() {
   
-    while(-this.e > BigNum._precision) {
-      this.i /= 10n;
-      this.e++;
+    var trunc = -this.e - BigNum._precision;
+    if(trunc > 0) {
+      this.i /= 10n ** BigInt(trunc);
+      this.e += trunc;
     }
+
+    // while(-this.e > BigNum._precision) {
+    //   this.i /= 10n;
+    //   this.e++;
+    // }
   }
 
   toString() {
