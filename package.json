@@ -1,6 +1,6 @@
 {
   "name": "bignum-native",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An implementation of arbitrary-precision arithmetic using JavaScript's native BigInt type",
   "main": "./bignum-native",
   "directories": {
