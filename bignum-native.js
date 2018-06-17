@@ -179,7 +179,8 @@ class BigNum {
 
     // In order for the integer quotient to have the correct precision, a.e - b.e must be greater than that precision.
     // So we need only to increase a.e.
-    var increaseA = Math.max(BigNum.precision - (a.e - b.e), 0);
+    // TODO: Revisit the value of increaseA. Is it correct in every circumstance?
+    var increaseA = Math.max(BigNum.precision - (a.e + b.e), 0);
 
     var a_increased = new BigNum();
     a_increased.i = BigNum.multiplyByTens(a.i, increaseA);
@@ -190,6 +191,7 @@ class BigNum {
     quotient.i = a_increased.i / b.i;
     quotient.e = a.e - b.e - increaseA;
 
+    // No need to truncate since we already increased the number of digits before dividing
     quotient._normalize();
     return quotient;
   }
@@ -200,6 +202,61 @@ class BigNum {
    */
   divide(b) {
     return BigNum.divide(this, b);
+  }
+
+  /**
+   * Returns the square root of this BigNum.
+   */
+  sqrt() {
+  
+    BigNum._precision++;
+
+    // Let the guess value be 10^(e/2), where e is this.e
+    var x = new BigNum();
+    x.i = 1n;
+    x.e = Math.floor(this.e / 2);
+    var onehalf = new BigNum('0.5');
+    
+    var xt = x.clone();
+    xt._truncate();
+    xt._normalize();
+    var lastxt;
+
+    var i;
+    for(i=0; i<100; i++) {
+      lastxt = xt;
+
+      x = this.divide(x).add(x).multiply(onehalf); 
+      xt = x.clone();
+      xt._truncate();
+      xt._normalize();
+      if(xt.i === lastxt.i && xt.e === lastxt.e)
+        break;
+    }
+    if(i>=100) {
+      console.log("Warning: sqrt exceeded maximum iterations. (Did it enter a cycle?)");
+    }
+    BigNum._precision--;
+    xt._truncate();
+    xt._normalize();
+    
+    return xt;
+
+  }
+
+  /**
+   * Returns the square root of x.
+   * @param {BigNum} x 
+   */
+  static sqrt(x) {
+    return x.sqrt();
+  }
+
+  clone() {
+    var a = new BigNum();
+    a.i = this.i;
+    a.e = this.e;
+    return a;
   }
 
 
@@ -224,7 +281,7 @@ class BigNum {
    * Remove zeroes in the least-significant digit of this BigNum
    */
   _normalize() {
-    while(this.i % 10n === 0n) {
+    while(this.i % 10n === 0n && this.i !== 0n) {
       this.i /= 10n;
       this.e++;
     }
@@ -233,13 +290,21 @@ class BigNum {
   /**
    * Truncate this BigNum to the configured precision
    * TODO: Make this better
+   * TODO: Rounding
    */
   _truncate() {
   
     var trunc = -this.e - BigNum._precision;
     if(trunc > 0) {
-      this.i /= 10n ** BigInt(trunc);
+      this.i /= 10n ** BigInt(trunc-1);
       this.e += trunc;
+
+      var nextDigit = this.i % 10n;
+      if(nextDigit >= 5) {
+        this.i += 10n;
+      }
+
+      this.i /= 10n;
     }
 
     // while(-this.e > BigNum._precision) {

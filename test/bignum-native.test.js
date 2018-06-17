@@ -142,6 +142,29 @@ describe('BigNum', () => {
     })
   })
 
+  describe('sqrt', () => {
+
+
+    it('should return the square root', () => {
+      assert.deepEqual(BigNum.sqrt(new BigNum('1')), new BigNum('1'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('4')), new BigNum('2'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('9')), new BigNum('3'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('16')), new BigNum('4'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('25')), new BigNum('5'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('36')), new BigNum('6'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('49')), new BigNum('7'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('64')), new BigNum('8'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('81')), new BigNum('9'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('100')), new BigNum('10'));
+       
+      assert.deepEqual(BigNum.sqrt(new BigNum('2.25')), new BigNum('1.5'));
+      
+       
+      assert.deepEqual(BigNum.sqrt(new BigNum('2')), new BigNum('1.41421356237309504880168872421'));
+      
+    })
+  })
+
   describe('toString', () => {
     it('should return the string representation of a BigNum', () => {
       assert.equal(new BigNum('3.14159'), '3.14159');
