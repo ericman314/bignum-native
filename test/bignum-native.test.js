@@ -2,7 +2,6 @@ var assert = require('assert')
 var BigNum = require('../bignum-native')
 var util = require('util')
 
-
 describe('BigNum', () => {
 
   describe('constructor', () => {
@@ -146,6 +145,9 @@ describe('BigNum', () => {
 
 
     it('should return the square root', () => {
+
+      BigNum.precision = 60;
+
       assert.deepEqual(BigNum.sqrt(new BigNum('1')), new BigNum('1'));
       assert.deepEqual(BigNum.sqrt(new BigNum('4')), new BigNum('2'));
       assert.deepEqual(BigNum.sqrt(new BigNum('9')), new BigNum('3'));
@@ -156,11 +158,10 @@ describe('BigNum', () => {
       assert.deepEqual(BigNum.sqrt(new BigNum('64')), new BigNum('8'));
       assert.deepEqual(BigNum.sqrt(new BigNum('81')), new BigNum('9'));
       assert.deepEqual(BigNum.sqrt(new BigNum('100')), new BigNum('10'));
-       
       assert.deepEqual(BigNum.sqrt(new BigNum('2.25')), new BigNum('1.5'));
-      
-       
-      assert.deepEqual(BigNum.sqrt(new BigNum('2')), new BigNum('1.41421356237309504880168872421'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('2')), new BigNum('1.414213562373095048801688724209698078569671875376948073176680'));
+      assert.deepEqual(BigNum.sqrt(new BigNum('3')), new BigNum('1.732050807568877293527446341505872366942805253810380628055807'))
+      assert.deepEqual(BigNum.sqrt(new BigNum('5')), new BigNum('2.236067977499789696409173668731276235440618359611525724270897'));
       
     })
   })
@@ -172,4 +173,5 @@ describe('BigNum', () => {
       assert.equal(new BigNum('-4000'), '-4000');
     })
   })
+
 })
